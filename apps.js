@@ -1,5 +1,7 @@
 
-  // Initial array of movies
+ 
+ 
+ // Initial array of movies
   var items = ["pencil", "notebook", "ruler"];
 
 
@@ -41,7 +43,20 @@
     renderButtons();
   });
 
+    //******************* function handles events where one button is clicked
+    $("#add-item").on("click", function (event) {
+      // prevent submit button from refreshing the page
+      event.preventDefault();
 
+      // Grab the text from the input box
+      var item = $("#item-input").val().trim();
+      // The item from the textbox is then added to the array
+      items.push(item);
+      console.log(items);
+
+      // calling renderButtons which handles the processing of our item array
+      renderButtons();
+    });
 
 
 
@@ -79,6 +94,14 @@
           // Giving the image tag an src attribute of a proprty pulled off the
           // result item
           itemImage.attr("src", results[i].images.fixed_height.url);
+          itemImage.attr("title", "Rating: " + rating);
+          itemImage.attr("data-still", results[i].images.fixed_height_still.url);
+          itemImage.attr("data-state", "still");
+          itemImage.addClass("gif");
+          itemImage.attr("data-animate", results[i].images.fixed_height.url);
+
+          console.log("still image" + results[i].images.fixed_height.url);
+          console.log("still image" + results[i].images.fixed_height_still.url);
 
           // Appending the paragraph and itemImage we created to the "gifDiv" div we created
           gifDiv.append(p);
@@ -93,21 +116,21 @@
 
 
 
-
-    //******************* function handles events where one button is clicked
-    $("#add-item").on("click", function (event) {
-      // prevent submit button from refreshing the page
-      event.preventDefault();
-
-      // Grab the text from the input box
-      var item = $("#item-input").val().trim();
-      // The item from the textbox is then added to the array
-      items.push(item);
-      console.log(items);
-
-      // calling renderButtons which handles the processing of our item array
-      renderButtons();
+    $(".gif").on("click", function() {
+      // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+      var state = $(this).attr("data-state");
+      // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+      // Then, set the image's data-state to animate
+      // Else set src to the data-still value
+      if (state === "still") {
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
+      } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+      }
     });
+
 
     // Function for displaying the item info
     $(document).on("click", ".item", displayItemGif);
@@ -118,4 +141,4 @@
     //  $(document).on("click", ".item", alertItemName);
 
 
-   //
+  
