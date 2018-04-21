@@ -1,44 +1,121 @@
-   // Initial array of movies
-   var movies = ["pencil", "notebook", "ruler"];
 
-   // Function for displaying movie data
-   function renderButtons() {
+  // Initial array of movies
+  var items = ["pencil", "notebook", "ruler"];
 
-     // Deleting the movie buttons prior to adding new movie buttons
-     // (this is necessary otherwise we will have repeat buttons)
-     $("#movies-view").empty();
 
-     // Looping through the array of movies
-     for (var i = 0; i < movies.length; i++) {
+  // Generic function for capturing the movie name from the data-attribute
+  //  function alertItemName() {
+  //   var itemName = $(this).attr("data-name");
 
-       // Then dynamicaly generating buttons for each movie in the array.
-       // This code $("<button>") is all jQuery needs to create the start and end tag. (<button></button>)
-       var a = $("<button>");
-       // Adding a class
-       a.addClass("movie");
-       // Adding a data-attribute with a value of the movie at index i
-       a.attr("data-name", movies[i]);
-       // Providing the button's text with a value of the movie at index i
-       a.text(movies[i]);
-       // Adding the button to the HTML
-       $("#movies-view").append(a);
-     }
-   }
+  //   alert(itemName);
+  // }
 
-   // This function handles events where one button is clicked
-   $("#add-movie").on("click", function(event) {
-     // event.preventDefault() prevents the form from trying to submit itself.
-     // We're using a form so that the user can hit enter instead of clicking the button if they want
-     event.preventDefault();
 
-     // This line will grab the text from the input box
-     var movie = $("#movie-input").val().trim();
-     // The movie from the textbox is then added to our array
-     movies.push(movie);
+    //********************* function for displaying items data
+  function renderButtons() {
 
-     // calling renderButtons which handles the processing of our movie array
-     renderButtons();
-   });
+    // Deleting the item buttons prior to adding new item buttons
+    // (this is necessary otherwise we will have repeat buttons)
+    $("#items-view").empty();
 
-   // Calling the renderButtons function at least once to display the initial list of movies
-   renderButtons();
+    // Looping through the array of items
+    for (var i = 0; i < items.length; i++) {
+
+      // Then dynamicaly generating buttons for each item in the array.
+      var a = $("<button>");
+      // Adding a class
+      a.addClass("item");
+      // Adding a data-attribute with a value of the items at index i
+      a.attr("data-name", items[i]);
+      // Providing the button's text with a value of the items at index i
+      a.text(items[i]);
+      // Adding the button to the HTML
+      $("#items-view").append(a);
+    }
+  }
+
+//********************** onclick to render gifs
+  $("#gifs-appear-here").on("clilck", function() {
+    var schoolItem = $("#item-input").val().trim();
+    items.push(schoolItem);
+    renderButtons();
+  });
+
+
+
+
+
+  // Function for dumping the JSON content for each button into the div
+  function displayItemGif() {
+
+    var item = $(this).attr("data-name");
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + item + "&api_key=H8A80HuaNbDokHUJ6pYNl7HnLiHB711M&limit=10";
+
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then(function (response) {
+
+      // Storing an array of results in the results variable
+      var results = response.data;
+
+      // Looping over every result item
+      for (var i = 0; i < results.length; i++) {
+
+        // Only taking action if the photo has an appropriate rating
+        if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
+          // Creating a div with the class "item"
+          var gifDiv = $("<div class='gif'>");
+
+          // Storing the result item's rating
+          var rating = results[i].rating;
+
+          // Creating a paragraph tag with the result item's rating
+          var p = $("<p>").text("Rating: " + rating);
+
+          // Creating an image tag
+          var itemImage = $("<img>");
+
+          // Giving the image tag an src attribute of a proprty pulled off the
+          // result item
+          itemImage.attr("src", results[i].images.fixed_height.url);
+
+          // Appending the paragraph and itemImage we created to the "gifDiv" div we created
+          gifDiv.append(p);
+          gifDiv.append(itemImage);
+
+          // Prepending the gifDiv to the "#gifs-appear-here" div in the HTML
+          $("#gifs-appear-here").prepend(gifDiv);
+        }
+      }
+    });
+  }
+
+
+
+
+    //******************* function handles events where one button is clicked
+    $("#add-item").on("click", function (event) {
+      // prevent submit button from refreshing the page
+      event.preventDefault();
+
+      // Grab the text from the input box
+      var item = $("#item-input").val().trim();
+      // The item from the textbox is then added to the array
+      items.push(item);
+      console.log(items);
+
+      // calling renderButtons which handles the processing of our item array
+      renderButtons();
+    });
+
+    // Function for displaying the item info
+    $(document).on("click", ".item", displayItemGif);
+
+    //************* Calling the renderButtons function at least once to display the initial list of items
+    renderButtons();
+
+    //  $(document).on("click", ".item", alertItemName);
+
+
+   //
