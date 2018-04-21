@@ -93,7 +93,7 @@
 
           // Giving the image tag an src attribute of a proprty pulled off the
           // result item
-          itemImage.attr("src", results[i].images.fixed_height.url);
+          itemImage.attr("src", results[i].images.fixed_height_still.url);
           itemImage.attr("title", "Rating: " + rating);
           itemImage.attr("data-still", results[i].images.fixed_height_still.url);
           itemImage.attr("data-state", "still");
@@ -116,20 +116,32 @@
 
 
 
-    $(".gif").on("click", function() {
-      // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
-      var state = $(this).attr("data-state");
-      // If the clicked image's state is still, update its src attribute to what its data-animate value is.
-      // Then, set the image's data-state to animate
-      // Else set src to the data-still value
-      if (state === "still") {
-        $(this).attr("src", $(this).attr("data-animate"));
-        $(this).attr("data-state", "animate");
-      } else {
-        $(this).attr("src", $(this).attr("data-still"));
-        $(this).attr("data-state", "still");
+    // $(".gif").on("click", function() {
+    //   // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+    //   var state = $(this).attr("data-state");
+    //   // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+    //   // Then, set the image's data-state to animate
+    //   // Else set src to the data-still value
+    //   if (state === "still") {
+    //     $(this).attr("src", $(this).attr("data-animate"));
+    //     $(this).attr("data-state", "animate");
+    //   } else {
+    //     $(this).attr("src", $(this).attr("data-still"));
+    //     $(this).attr("data-state", "still");
+    //   }
+    // });
+
+    ////////////////// Animate Gifs (Pausing Gifs)/////////////////////
+$(document).on("click", ".gif", function(){
+  var goAnimate = $(this).attr("data-state");
+      if (goAnimate == "still"){
+          $(this).attr("src", $(this).data("animate"));
       }
-    });
+      else {
+          $(this).attr("src", $(this).data("still"));
+          $(this).attr("data-state", "still");
+      }
+});
 
 
     // Function for displaying the item info
