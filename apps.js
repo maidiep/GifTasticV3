@@ -56,6 +56,8 @@
 
       // calling renderButtons which handles the processing of our item array
       renderButtons();
+
+      $("#item-input").val("");
     });
 
 
@@ -116,31 +118,28 @@
 
 
 
-    // $(".gif").on("click", function() {
-    //   // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
-    //   var state = $(this).attr("data-state");
-    //   // If the clicked image's state is still, update its src attribute to what its data-animate value is.
-    //   // Then, set the image's data-state to animate
-    //   // Else set src to the data-still value
-    //   if (state === "still") {
-    //     $(this).attr("src", $(this).attr("data-animate"));
-    //     $(this).attr("data-state", "animate");
-    //   } else {
-    //     $(this).attr("src", $(this).attr("data-still"));
-    //     $(this).attr("data-state", "still");
-    //   }
-    // });
 
-    ////////////////// Animate Gifs (Pausing Gifs)/////////////////////
+
+    //***********Animating and Pausing Gifs
 $(document).on("click", ".gif", function(){
-  var goAnimate = $(this).attr("data-state");
-      if (goAnimate == "still"){
-          $(this).attr("src", $(this).data("animate"));
-      }
-      else {
-          $(this).attr("src", $(this).data("still"));
-          $(this).attr("data-state", "still");
-      }
+
+    var state = $(this).attr("data-state");
+
+    if(state === "still"){
+      var animate = $(this).attr("data-animate");
+      $(this).attr("src", )
+    }
+  // var goAnimate = $(this).attr("data-state");
+  //     if (goAnimate == "still"){
+  //         $(this).attr("src", $(this).data("animate"));
+  //     }
+  //     else {
+  //         $(this).attr("src", $(this).data("still"));
+  //         $(this).attr("data-state", "still");
+  //     }
+
+  
+
 });
 
 
