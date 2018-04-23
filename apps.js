@@ -123,7 +123,7 @@
 
     //***********Animating and Pausing Gifs
 $(document).on("click", ".gif", function(){
-
+console.log("hello world")
     var state = $(this).attr("data-state");
 
     if(state === "still"){
