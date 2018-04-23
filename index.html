@@ -10,11 +10,17 @@
     form,
     input {
       margin: 10px;
-}
+    }
     button.item.btn.btn-warning{
        margin: 5px;
      
     }
+    .jumbotron {
+      background-image: url(images/school.jpg) no-repeat scroll 50% 50%;
+      background-size: cover;
+    }
+
+  
   </style>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -45,14 +51,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-4">
-      </div>
-      <div class="col-md-4">
-      </div>
-      <div class="col-md-4">
-      </div>
-    </div>
+   
   </div>
 
 
@@ -63,7 +62,7 @@
 
     <form id="item-form">
       <label for="item-input">Add a School Item</label>
-      <input type="text" id="item-input"><br>
+      <input type="text" id="item-input"><br><br>
 
       <!-- Button triggers new movie to be added -->
       <input id="add-item" type="submit" value="Add the School Item">
