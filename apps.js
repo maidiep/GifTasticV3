@@ -26,8 +26,9 @@
       // Then dynamicaly generating buttons for each item in the array.
       var a = $("<button>");
       // Adding a class
-      a.addClass("item");
+      a.addClass("item btn btn-warning");
       // Adding a data-attribute with a value of the items at index i
+      // a.addClass("btn btn-warning");
       a.attr("data-name", items[i]);
       // Providing the button's text with a value of the items at index i
       a.text(items[i]);
