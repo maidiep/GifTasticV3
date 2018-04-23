@@ -132,18 +132,40 @@
 //     }
 // });
 //***********Animating and Pausing Gifs
+// $(document).on("click", ".gif", function(){
+//   console.log("hello world")
+//      var state = $(this).attr("data-state");
+  
+//      if(state === "still"){
+//        var animate = $(this).attr("data-animate");
+//        $(this).attr("src", animate)
+//      }
+  
+//      if(state === "animate") {
+//          var still = $(this).attr("data-still");
+//          $(this).attr("src", still)
+//      }
+  
+//   });
+
+//***********Animating and Pausing Gifs
 $(document).on("click", ".gif", function(){
   console.log("hello world")
      var state = $(this).attr("data-state");
   
      if(state === "still"){
        var animate = $(this).attr("data-animate");
-       $(this).attr("src", animate)
+       $(this).attr("src", animate);
+       // changing the current data-state to animate now
+       $(this).attr("data-state", "animate");
+  
      }
   
      if(state === "animate") {
          var still = $(this).attr("data-still");
-         $(this).attr("src", still)
+         $(this).attr("src", still);
+         // changing the current data-state to still now
+         $(this).attr("data-state", "still");
      }
   
   });
